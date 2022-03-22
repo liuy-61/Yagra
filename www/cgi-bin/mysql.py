@@ -86,9 +86,6 @@ def exist_tb_in_db(db_name, tb_name):
 
 
 if __name__ == '__main__':
-    # print(exist_tb_in_db(tb_name="User", db_name=DBNAME))
-    # insert_sql = 'insert User(user_name, pwd) values(\"{}\", \"{}\")'.format("liuyao", "5461")
-    # insert_or_update_data(insert_sql)
     sql = 'select * from User'
     res = query_data(sql)
     debug = 0
