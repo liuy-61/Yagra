@@ -1,0 +1,2 @@
+本服务使用msql数据据系统，数据库名称为yagra，利用数据表User来存储用户信息。
+user表中包括user_name,pwd,portrait等字段
