@@ -9,11 +9,9 @@ form = cgi.FieldStorage()
 name = form.getvalue("name")
 pwd = form.getvalue("pwd")
 
-print("Content-type:text/html")
-print()
 print("name: " + name)
 print("pwd: " + pwd)
-print("<br>")
+
 
 # TODO 把该处的代码整合到setup.py
 # 在接收到用户名和密码之后，首先判断用户表是否存在，不存在则先创建对应的表
@@ -31,10 +29,11 @@ if len(res) == 0:
 elif res[0]['pwd'] == pwd:
     print("login successfully")
     # TODO 服务器生成session_id 以及expire_time
-    session_id = secrets.token_urlsafe(16)
-    # session_id = "54615461"
+    # session_id = secrets.token_urlsafe(16)
+    session_id = "555444666111"
     GMT_FORMAT = '%a, %d %b %Y %H:%M:%S GMT'
     expire_time = (datetime.datetime.now() + datetime.timedelta(hours=+1)).strftime(GMT_FORMAT)
+    print("Content-type:text/html")
     print('Set-Cookie: session_id={}; expires={}'.format(session_id, expire_time))
     # TODO 将session_id写入cookie，将expire_time作为cookie的有效时间
     print()
