@@ -12,15 +12,6 @@ pwd = form.getvalue("pwd")
 print("name: " + name)
 print("pwd: " + pwd)
 
-
-# TODO 把该处的代码整合到setup.py
-# 在接收到用户名和密码之后，首先判断用户表是否存在，不存在则先创建对应的表
-if not exist_tb_in_db(db_name=DBNAME, tb_name="User"):
-    sql = 'use {};'.format(DBNAME)
-    query_data(sql)
-    sql = "create table User(user_name char(30) primary key, pwd char(30));"
-    query_data(sql)
-
 #  根据用户提供的用户名, 查找有无对应的用户,如果没有则提醒用户进行注册,如果密码错误的话提示登录失败
 sql = 'select user_name,pwd from User where user_name = \"{}\"'.format(name)
 res = query_data(sql)
@@ -38,9 +29,11 @@ elif res[0]['pwd'] == pwd:
     # TODO 将session_id写入cookie，将expire_time作为cookie的有效时间
     print()
     # TODO 浏览器的每次访问都会自动加上cookie用以验证，直到cookie失效
-
+    print("login successfully")
 
 else:
+    print("Content-type:text/html")
+    print()
     print("login failure")
 
 
