@@ -4,16 +4,27 @@ import cgi
 import cgitb
 import json
 import sys
+import os
+from http import cookies
 
-cgitb.enable()
-form = cgi.FieldStorage()
-ID = form.getvalue("ID")
-NAME = form.getvalue("NAME")
-result = {"ID":ID, "NAME":NAME}
-# todo something
-
-print("Content-type:application/json")
-print(json.dumps(result))
+print("Content-type:text/html")
+print()
 
 
-
+# TODO 获取cookie的方式
+def get_cookie():
+    """
+    取出浏览器中的name为session_id的cookie数据
+    :return:
+    """
+    if 'HTTP_COOKIE' in os.environ:
+        cookie_string = os.environ.get('HTTP_COOKIE')
+        c = cookies.SimpleCookie()
+        c.load(cookie_string)
+        # print(c)
+        try:
+            data = c['session_id'].value
+            print("cookie data: " + data + "<br>")
+        except KeyError:
+            print("cookie Not set or expired <br>")
+    return data

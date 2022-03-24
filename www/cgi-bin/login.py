@@ -9,6 +9,7 @@ from http import cookies
 from mysql import query_data, insert_or_update_data, exist_db, exist_tb_in_db, DBNAME
 cgitb.enable()
 
+
 # 获取用户名和密码
 form = cgi.FieldStorage()
 name_front = form.getvalue("name")
@@ -32,34 +33,17 @@ else:
               }
 print("Content-type:text/html")
 
-# TODO 如果登录成功，服务器生成session_id 以及expire_time
+# 如果登录成功,服务器生成session_id,以及expire_time,同时存储在浏览器和数据库中
 if result['status_code'] == 2:
-    session_id = "555444666111"
+    session_id = secrets.token_urlsafe(16)
     GMT_FORMAT = '%a, %d %b %Y %H:%M:%S GMT'
     expire_time = (datetime.datetime.now() + datetime.timedelta(hours=+1)).strftime(GMT_FORMAT)
-    print('Set-Cookie: session_id={}; expires={}'.format(session_id, expire_time))
+    # 将cookie存入浏览器中
+    print('Set-Cookie: session_id={}; expires={}; path=/'.format(session_id, expire_time))
+    # 将cookie存入数据库中
+    insert_sql = 'insert Session(session_id, expire_time) values(\"{}\", \"{}\")'.format(
+        session_id, expire_time)
+    insert_or_update_data(insert_sql)
 
 print()
 print(json.dumps(result))
-
-# session_id = secrets.token_urlsafe(16)
-# session_id = "555444666111"
-# GMT_FORMAT = '%a, %d %b %Y %H:%M:%S GMT'
-# expire_time = (datetime.datetime.now() + datetime.timedelta(hours=+1)).strftime(GMT_FORMAT)
-# print('Set-Cookie: session_id={}; expires={}'.format(session_id, expire_time))
-# TODO 将session_id写入cookie，将expire_time作为cookie的有效时间
-# TODO 浏览器的每次访问都会自动加上cookie用以验证，直到cookie失效
-# print("login successfully")
-
-
-# TODO 获取cookie的方式
-# if 'HTTP_COOKIE' in os.environ:
-#     cookie_string = os.environ.get('HTTP_COOKIE')
-#     c = cookies.SimpleCookie()
-#     c.load(cookie_string)
-#     print(c)
-#     try:
-#         data = c['session_id'].value
-#         print("cookie data: " + data + "<br>")
-#     except KeyError:
-#         print("cookie 没有设置或者已过期<br>")
