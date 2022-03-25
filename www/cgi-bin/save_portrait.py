@@ -11,7 +11,7 @@ cgitb.enable()
 
 # 获取文件名
 form = cgi.FieldStorage()
-fileitem = form['filename']
+fileitem = form['file']
 
 # 检测文件是否上传
 if fileitem.filename:
