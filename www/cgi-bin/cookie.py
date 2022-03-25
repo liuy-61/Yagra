@@ -14,7 +14,6 @@ def get_cookie(name):
         data = None
         try:
             data = c[name].value
-            print("cookie data: " + data + "<br>")
         except KeyError:
-            print("cookie Not set or expired <br>")
+            pass
     return data

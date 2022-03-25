@@ -25,10 +25,10 @@ def get_cookie():
         # print(c)
         try:
             data = c['session_id'].value
-            print("cookie data: " + data + "<br>")
         except KeyError:
-            print("cookie Not set or expired <br>")
+            data = None
     return data
+
 
 if __name__ == '__main__':
     print(get_cookie())

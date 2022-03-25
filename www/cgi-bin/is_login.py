@@ -30,7 +30,6 @@ else:
             "status_code": 1,
             "status_str": "You have logged"}
 
-
 print("Content-type:text/html")
 print()
 print(json.dumps(result))
