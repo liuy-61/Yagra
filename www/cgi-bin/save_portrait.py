@@ -5,9 +5,14 @@ import os
 import cgitb
 import codecs
 import sys
+from cookie import get_cookie
 
 sys.stdout = codecs.getwriter('utf8')(sys.stdout.buffer)
 cgitb.enable()
+
+#获取前端登录用户名
+cookie_front = get_cookie("session_id")
+logged_name = cookie_front.split("-")[1] + ".png"
 
 # 获取文件名
 form = cgi.FieldStorage()
@@ -19,7 +24,7 @@ if fileitem.filename:
     images_dir = os.getcwd()
     images_dir = os.path.join(images_dir, "images")
     fn = os.path.basename(fileitem.filename)
-    images_path = os.path.join(images_dir, fn)
+    images_path = os.path.join(images_dir, logged_name)
     open(images_path, 'wb').write(fileitem.file.read())
 
     message = 'portrait uploaded successfully'
