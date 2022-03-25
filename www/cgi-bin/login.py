@@ -35,7 +35,7 @@ print("Content-type:text/html")
 
 # 如果登录成功,服务器生成session_id,以及expire_time,同时存储在浏览器和数据库中
 if result['status_code'] == 2:
-    session_id = secrets.token_urlsafe(16)
+    session_id = secrets.token_urlsafe(16) + "-" + name_front
     GMT_FORMAT = '%a, %d %b %Y %H:%M:%S GMT'
     expire_time = (datetime.datetime.now() + datetime.timedelta(hours=+1)).strftime(GMT_FORMAT)
     # 将cookie存入浏览器中
