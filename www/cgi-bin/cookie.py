@@ -11,6 +11,7 @@ def get_cookie(name):
         cookie_string = os.environ.get('HTTP_COOKIE')
         c = cookies.SimpleCookie()
         c.load(cookie_string)
+        data = None
         try:
             data = c[name].value
             print("cookie data: " + data + "<br>")

@@ -21,6 +21,7 @@ def get_cookie():
         cookie_string = os.environ.get('HTTP_COOKIE')
         c = cookies.SimpleCookie()
         c.load(cookie_string)
+        data = None
         # print(c)
         try:
             data = c['session_id'].value
@@ -28,3 +29,6 @@ def get_cookie():
         except KeyError:
             print("cookie Not set or expired <br>")
     return data
+
+if __name__ == '__main__':
+    print(get_cookie())
